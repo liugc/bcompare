@@ -27,13 +27,13 @@ function activate(context) {
 		path = path.replace(/""/g, "\"");
 		let visibleTextEditors = vscode.window.visibleTextEditors;
 		let editors = [];
-		let activeText = vscode.window.activeTextEditor._documentData._uri.fsPath;
+		let activeText = vscode.window.activeTextEditor.document.uri.path;
 		visibleTextEditors.forEach((editor) => {
-			console.log(editor._viewColumn);
-			if (editor._viewColumn == 1) {
-				editors[0] = editor._documentData._uri.fsPath;
+			let uri = editor.document.uri.path;
+			if (uri === activeText) {
+				editors[0] = uri;
 			} else {
-				editors[1] = editor._documentData._uri.fsPath;
+				editors[1] = uri;
 			}
 		});
 		if (editors.length === 2) {
